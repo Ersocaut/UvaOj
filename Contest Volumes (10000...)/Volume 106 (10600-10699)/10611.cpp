@@ -3,37 +3,34 @@
 
 using namespace std;
 
-unsigned int heights[50005];
+unsigned int alturas[50005];
 
 int main()
 {
-    int N;
-    cin >> N;
-
-    for (int i = 0; i < N; ++i)
-        cin >> heights[i];
-
-    int Q;
-    cin >> Q;
-
-    while (Q--)
-    {
-        int height;
-        cin >> height;
-
-        unsigned int * above = upper_bound(heights, heights + N, height);
-        unsigned int * below = above; --below;
-        while (below >= heights && *below == height)
-           --below;
-
-        if (below >= heights)
-            cout << *below << ' ';
+    unsigned int N, Q, se;
+    scanf("%d", &N);
+    for (unsigned int i = 0; i < N; ++i)
+        scanf("%d", &alturas[i]);
+    scanf("%d", &Q);
+    while (Q--){
+        scanf("%d", &se);
+        unsigned int * mayor = upper_bound(alturas, alturas + N, se);
+        unsigned int * menor = mayor;
+        --menor;
+        while (menor >= alturas && *menor == se){
+            //cout << "menor = " << menor << endl;
+            //cout << "*menor = " << *menor << endl;
+            --menor;
+        }
+        if (menor >= alturas)
+            printf("%d ", *menor);
         else
-            cout << "X ";
+            printf("X ");
 
-        if (above == heights + N)
-            cout << "X\n";
+        if (mayor == alturas + N)
+            printf("X\n");
         else
-            cout << *above << '\n';
+            printf("%d\n",*mayor);
     }
+
 }
