@@ -1,49 +1,37 @@
 #include<iostream>
-#include<tuple>
-#include<map>
+#include<stdio.h>
 
 using namespace std;
-map<tuple<int,int>,int> rev;
 
-bool eval(int a, int b){
-    tuple <int, int> ev(a,b);
-    if (rev.find(ev) != rev.end()){
-        return true;
+long int gcd(long int a, long int b){
+    if (b==0){
+        return a;
     }
-    return false;
+    long int piv, sw;
+    if (a<b){
+        sw = a;
+        a = b;
+        b = sw;
+    }
+    piv = a%b;
+    return gcd(b,piv);
 }
 
-int gcd(int a, int b){
-    int g = 1;
-    for (int i = 2; i < b; i++){
-        if (a%i == 0 && b%i == 0){
-            g = i;
-        }
-    }
-    rev[make_tuple(a,b)] = g;
-    return g;
-}
-
-int gcd(int a){
-    int g = 0;
-    for (int i = 1; i < a; i++){
-        for (int j = i+1; j <= a; j++){
-            if (eval(i,j)){
-                g += rev[make_tuple(i,j)];
-            }
-            else{
-                g = g + gcd(i,j);
-            }
+long int gcd(int a){
+    long int g = 0, i, j;
+    for (i = 1; i < a; i++){
+        for (j = i+1; j <= a; j++){
+            g += gcd(i,j);
         }
     }
     return g;
 }
 
 int main(){
-    unsigned int N;
-    scanf("%d", &N);
-    while (N != 0){
-        printf("%d\n", gcd(N));
+    long int N, g;
+    while (scanf("%d", &N)==1 && N != 0){
+        g = gcd(N);
+        printf("%d\n", g);
         scanf("%d", &N);
     }
     return 0;
