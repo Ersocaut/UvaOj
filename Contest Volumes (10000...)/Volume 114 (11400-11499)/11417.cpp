@@ -32,7 +32,6 @@ int main(){
     while (scanf("%d", &N)==1 && N != 0){
         g = gcd(N);
         printf("%d\n", g);
-        scanf("%d", &N);
     }
     return 0;
 }
