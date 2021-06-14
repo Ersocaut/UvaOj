@@ -2,28 +2,23 @@
 
 using namespace std;
 
-int des(int w, int a, int b, int c){
-    if (w > (a + b + c)){
-        return des(w,a + 1,b,c) + des(w,a,b + 1,c) + des(w,a,b,c + 1);
-    }
-    else{
-        if ((a == 0) || (b == 0) || (c == 0)){
-            return 0;
-        }
-        else if ((a <= b + c) && (b <= a + c) && (c <= a + b)){
-            return 1;
-        }
-        else{
-            return 0;
-        }
-    }
+long long sum1(long long n){
+    return n * (n + 1) / 2;
+}
+
+long long sum2(long long n){
+    return n * (n + 1) / 2 * (2*n + 1) / 3;
 }
 
 int main(){
-    int N,f;
-    while((scanf("%d",&N)==1 && N >= 3)){
-        f = des(N,0,0,0);
-        printf("%d\n", f);
+    long long n,m,ans;
+    while((scanf("%lld",&n)==1 && n >= 3)){
+        m = (n+1)/2;
+        ans = -3 * (sum2(m - 1) - sum2(1)) + (2*n + 3) * (sum1(m - 1) - sum1(1)) - 2*n * (m - 2);
+        ans += (sum2(n - 2) - sum2(m - 1)) - (2*n - 1) * (sum1(n - 2) - sum1(m - 1)) + (n*n - n) * (n - 1 - m);
+
+        ans /= 2;
+        printf("%lld\n", ans);
     }
     return 0;
 }
